@@ -20,6 +20,14 @@ fprintf(stdout,"%2d.%-30s %-5s %05d$\n",++number,menuItem.name,"-",menuItem.pric
 int main(int argc, char *argv[]) {
 
 /**
+ * arg check
+*/
+if(argc<2){
+printf("parameter error!");
+return 0;
+}
+
+/**
  * MENU OPERATIONS
 */
 
@@ -92,13 +100,17 @@ printf("table name: %s\n", table.name);
 FILE *menuFile = fopen("menu.h1m","rb");
 item menuItem;
 writeMenu(menuItem,menuFile);
-  while(getchar()!='q'){
-   
-  int x;
-    printf("item key: ");
+ 
 
-scanf("%d",&x);
-getc(stdin);
+while(1){
+char key[150000];
+scanf("%s",key);
+if(!(strcmp("q",key))){
+  break;
+}
+   
+  int x = atoi(key);
+
 table.items[itemCount] = x;
 itemCount++;
   fseek(menuFile,sizeof(item)*(x-1),SEEK_SET);
@@ -108,8 +120,9 @@ table.price=y;
 
 }
 
+
 fclose(menuFile);
-printf("%s price: %d",table.name,table.price);
+printf("%s price: %d\n",table.name,table.price);
 return 0;
 }
 
