@@ -56,6 +56,7 @@ if(!(strcmp("add",argv[1])) && !(strcmp("item",argv[2]))){
 FILE *menuFile = fopen("menu.h1m","ab");
 char name[30];
 int price;
+//deneme
 printf("item name: ");
 scanf(" %[^\n]",name);
 printf("item price: ");
