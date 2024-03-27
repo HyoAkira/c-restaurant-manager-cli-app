@@ -1,29 +1,51 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "util.h"
 
-struct MENU_ITEM {
-    char name[30];
-    int price;
-};
-typedef struct MENU_ITEM item;
 
-void writeMenu(item menuItem,FILE *menuFile){
-  fprintf(stdout,"%-30s %-5s %05s\n","NAME","|","PRICE");
-printf("----------------------------------------------\n");
-while(fread(&menuItem,sizeof(item),1,menuFile)){
-static int number=0;
-fprintf(stdout,"%2d.%-30s %-5s %05d$\n",++number,menuItem.name,"-",menuItem.price);
-}
-}
 
 int main(int argc, char *argv[]) {
+FILE *menuFile = fopen("menu.h1m","r+b");
+FILE *tableFile = fopen("tables.h1m","r+b");
 
 /**
  * arg check
 */
 if(argc<2){
-printf("parameter error!");
+
+while(1){
+  system("clear");
+printf("parameter error!\n");
+printf("-----------\n");
+printf("1- add item\n");
+printf("2- edit menu\n");
+printf("3- read menu\n");
+printf("4- create table\n");
+  char key;
+  printf("Select input: ");
+  scanf("%c",&key);
+if(key=='q'){
+  break;
+}
+  int x = atoi(&key);
+  switch(key){
+    case 1:{
+
+      break;
+    }
+    case 2:{
+      break;
+    }
+    case 3:{
+      break;
+    }
+    case 4:{
+      break;
+    }
+  }
+}
+
 return 0;
 }
 
@@ -32,8 +54,6 @@ return 0;
 */
 
 if(!(strcmp("read",argv[1])) && !(strcmp("menu",argv[2]))){
-
-FILE *menuFile = fopen("menu.h1m","rb");
 item menuItem;
 writeMenu(menuItem,menuFile);
 fclose(menuFile);
@@ -42,7 +62,6 @@ return 0;
 
 if(!(strcmp("edit",argv[1])) && !(strcmp("menu",argv[2]))){
 
-FILE *menuFile = fopen("menu.h1m","r+b");
 item menuItem;
 writeMenu(menuItem,menuFile);
 
@@ -64,7 +83,7 @@ return 0;
 }
 
 if(!(strcmp("add",argv[1])) && !(strcmp("item",argv[2]))){
-FILE *menuFile = fopen("menu.h1m","ab");
+ fseek(menuFile,0,SEEK_END);
 char name[30];
 int price;
 
@@ -91,13 +110,12 @@ int price;
  table.price=0;
  int y =0;
 if(!(strcmp("create",argv[1])) && !(strcmp("table",argv[2]))){
-FILE *tableFile = fopen("tables.h1m","ab");
+fseek(tableFile,0,SEEK_END);
 printf("table name: ");
 scanf(" %[^\n]",table.name);
 system("clear");
 printf("table name: %s\n", table.name);
 
-FILE *menuFile = fopen("menu.h1m","rb");
 item menuItem;
 writeMenu(menuItem,menuFile);
  

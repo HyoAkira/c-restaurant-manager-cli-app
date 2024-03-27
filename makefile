@@ -1,5 +1,5 @@
-src = main.c
-obj = main.o
+src = main.c util.c
+obj = main.o util.o
 prog= restaurantManager
 
 $(prog):$(obj)
